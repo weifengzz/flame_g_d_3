@@ -7,7 +7,11 @@ class ButtonController extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => {},
-      icon: const Icon(Icons.headset_mic_sharp),
+      icon: const Icon(
+        Icons.headset_mic_sharp,
+        color: Colors.red,
+        size: 80.0,
+      ),
     );
   }
 }
