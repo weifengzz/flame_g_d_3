@@ -2,12 +2,22 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    GameWidget(
-      game: MyGame(),
+    MaterialApp(
+      home: Scaffold(
+        body: GameWidget(
+          game: MyGame(),
+          overlayBuilderMap: {
+            'ButtonController': (BuildContext context, MyGame game) {
+              return const ButtonController();
+            },
+          },
+        ),
+      ),
     ),
   );
 }
@@ -25,6 +35,7 @@ class MyGame extends FlameGame with TapDetector {
 
   final double animationSpeed = .1;
   final double characterSize = 100.0;
+  final double characterSpeed = 100.0;
 
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
@@ -32,6 +43,14 @@ class MyGame extends FlameGame with TapDetector {
   @override
   Future<void>? onLoad() async {
     super.onLoad();
+
+    Sprite backgroundSprite = await loadSprite('background.png');
+
+    background = SpriteComponent()
+      ..sprite = backgroundSprite
+      ..size = backgroundSprite.originalSize;
+
+    add(background);
 
     final spriteSheet = SpriteSheet(
       image: await images.load('george2.png'),
@@ -74,6 +93,18 @@ class MyGame extends FlameGame with TapDetector {
       ..size = Vector2.all(100);
 
     add(george);
+
+    camera.followComponent(
+      george,
+      worldBounds: Rect.fromLTRB(
+        0,
+        0,
+        background.size.x,
+        background.size.y,
+      ),
+    );
+
+    overlays.add('ButtonController');
   }
 
   @override
@@ -84,20 +115,28 @@ class MyGame extends FlameGame with TapDetector {
         george.animation = idleAnimation;
         break;
       case 1:
+        if (george.y < background.size.y - george.height) {
+          george.y += dt * characterSpeed;
+        }
         george.animation = downAnimation;
-        george.y += 1;
         break;
       case 2:
         george.animation = leftAnimation;
-        george.x -= 1;
+        if (george.x > 0) {
+          george.x -= dt * characterSpeed;
+        }
         break;
       case 3:
         george.animation = upAnimation;
-        george.y -= 1;
+        if (george.y > 0) {
+          george.y -= dt * characterSpeed;
+        }
         break;
       case 4:
         george.animation = rightAnimation;
-        george.x += 1;
+        if (george.x < background.size.x - george.width) {
+          george.x += dt * characterSpeed;
+        }
         break;
       default:
         break;
@@ -110,5 +149,10 @@ class MyGame extends FlameGame with TapDetector {
     if (direction > 4) {
       direction = 0;
     }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
   }
 }
