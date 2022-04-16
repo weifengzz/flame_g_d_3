@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -6,7 +7,9 @@ import 'package:flame/sprite.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:tiled/tiled.dart' show ObjectGroup;
 import 'package:flutter/material.dart';
+import 'package:tiled/tiled.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,14 +32,14 @@ void main() {
   );
 }
 
-class MyGame extends FlameGame with TapDetector {
+class MyGame extends FlameGame with TapDetector, HasCollisionDetection {
   late SpriteAnimation downAnimation;
   late SpriteAnimation leftAnimation;
   late SpriteAnimation upAnimation;
   late SpriteAnimation rightAnimation;
   late SpriteAnimation idleAnimation;
 
-  late SpriteAnimationComponent george;
+  late GeorgeComponent george;
 
   late double mapWidth;
   late double mapHeight;
@@ -61,7 +64,21 @@ class MyGame extends FlameGame with TapDetector {
       Vector2.all(16.0),
     );
 
+    mapWidth = homeMap.tileMap.map.width * 16.0;
+    mapHeight = homeMap.tileMap.map.height * 16.0;
+
     add(homeMap);
+
+    final ObjectGroup friendGroup = homeMap.tileMap.getLayer('Friends') as ObjectGroup;
+    for (var friendBox in friendGroup.objects) {
+      add(
+        FriendComponent()
+          ..position = Vector2(friendBox.x, friendBox.y)
+          ..width = friendBox.width
+          ..height = friendBox.height
+          ..debugMode = true,
+      );
+    }
 
     // Sprite backgroundSprite = await loadSprite('background.png');
 
@@ -109,9 +126,10 @@ class MyGame extends FlameGame with TapDetector {
       to: 1,
     );
 
-    george = SpriteAnimationComponent()
+    george = GeorgeComponent()
       ..animation = downAnimation
       ..position = Vector2(characterSize, characterSize)
+      ..debugMode = true
       ..size = Vector2.all(100);
 
     add(george);
@@ -176,5 +194,20 @@ class MyGame extends FlameGame with TapDetector {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+  }
+}
+
+/// 碰撞检测
+class FriendComponent extends PositionComponent
+    with GestureHitboxes, CollisionCallbacks {
+  FriendComponent() {
+    add(RectangleHitbox());
+  }
+}
+
+class GeorgeComponent extends SpriteAnimationComponent
+    with GestureHitboxes, CollisionCallbacks {
+  GeorgeComponent() {
+    add(RectangleHitbox());
   }
 }
