@@ -5,6 +5,7 @@ import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
+import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,9 @@ void main() {
           game: MyGame(),
           overlayBuilderMap: {
             'ButtonController': (BuildContext context, MyGame game) {
-              return ButtonController(game: game,);
+              return ButtonController(
+                game: game,
+              );
             },
           },
         ),
@@ -35,7 +38,10 @@ class MyGame extends FlameGame with TapDetector {
 
   late SpriteAnimationComponent george;
 
-  late SpriteComponent background;
+  late double mapWidth;
+  late double mapHeight;
+
+  // late SpriteComponent background;
 
   final double animationSpeed = .1;
   final double characterSize = 100.0;
@@ -50,13 +56,20 @@ class MyGame extends FlameGame with TapDetector {
   Future<void>? onLoad() async {
     super.onLoad();
 
-    Sprite backgroundSprite = await loadSprite('background.png');
+    final homeMap = await TiledComponent.load(
+      'map.tmx',
+      Vector2.all(16.0),
+    );
 
-    background = SpriteComponent()
-      ..sprite = backgroundSprite
-      ..size = backgroundSprite.originalSize;
+    add(homeMap);
 
-    add(background);
+    // Sprite backgroundSprite = await loadSprite('background.png');
+
+    // background = SpriteComponent()
+    //   ..sprite = backgroundSprite
+    //   ..size = backgroundSprite.originalSize;
+
+    // add(background);
 
     FlameAudio.bgm.initialize();
     FlameAudio.audioCache.load('music.mp3');
@@ -108,8 +121,8 @@ class MyGame extends FlameGame with TapDetector {
       worldBounds: Rect.fromLTRB(
         0,
         0,
-        background.size.x,
-        background.size.y,
+        mapWidth,
+        mapHeight,
       ),
     );
 
@@ -124,7 +137,7 @@ class MyGame extends FlameGame with TapDetector {
         george.animation = idleAnimation;
         break;
       case 1:
-        if (george.y < background.size.y - george.height) {
+        if (george.y < mapHeight - george.height) {
           george.y += dt * characterSpeed;
         }
         george.animation = downAnimation;
@@ -143,7 +156,7 @@ class MyGame extends FlameGame with TapDetector {
         break;
       case 4:
         george.animation = rightAnimation;
-        if (george.x < background.size.x - george.width) {
+        if (george.x < mapWidth - george.width) {
           george.x += dt * characterSpeed;
         }
         break;
