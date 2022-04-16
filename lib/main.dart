@@ -1,11 +1,15 @@
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Flame.device.fullScreen();
   runApp(
     MaterialApp(
       home: Scaffold(
@@ -13,7 +17,7 @@ void main() {
           game: MyGame(),
           overlayBuilderMap: {
             'ButtonController': (BuildContext context, MyGame game) {
-              return const ButtonController();
+              return ButtonController(game: game,);
             },
           },
         ),
@@ -37,6 +41,8 @@ class MyGame extends FlameGame with TapDetector {
   final double characterSize = 100.0;
   final double characterSpeed = 100.0;
 
+  final String soundTrackName = '女驸马';
+
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
 
@@ -51,6 +57,9 @@ class MyGame extends FlameGame with TapDetector {
       ..size = backgroundSprite.originalSize;
 
     add(background);
+
+    FlameAudio.bgm.initialize();
+    FlameAudio.audioCache.load('music.mp3');
 
     final spriteSheet = SpriteSheet(
       image: await images.load('george2.png'),
