@@ -69,7 +69,8 @@ class MyGame extends FlameGame with TapDetector, HasCollisionDetection {
 
     add(homeMap);
 
-    final ObjectGroup friendGroup = homeMap.tileMap.getLayer('Friends') as ObjectGroup;
+    final ObjectGroup friendGroup =
+        homeMap.tileMap.getLayer('Friends') as ObjectGroup;
     for (var friendBox in friendGroup.objects) {
       add(
         FriendComponent()
@@ -202,6 +203,13 @@ class FriendComponent extends PositionComponent
     with GestureHitboxes, CollisionCallbacks {
   FriendComponent() {
     add(RectangleHitbox());
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    print('我遇见一个好朋友');
+    remove(this);
   }
 }
 
