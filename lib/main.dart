@@ -11,6 +11,9 @@ import 'package:tiled/tiled.dart' show ObjectGroup;
 import 'package:flutter/material.dart';
 import 'package:tiled/tiled.dart';
 
+import 'characters/friend_component.dart';
+import 'characters/george_component.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
@@ -63,6 +66,8 @@ class MyGame extends FlameGame
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
 
+  int friendNumber = 0;
+
   @override
   Future<void>? onLoad() async {
     super.onLoad();
@@ -81,7 +86,7 @@ class MyGame extends FlameGame
         homeMap.tileMap.getLayer('Friends') as ObjectGroup;
     for (var friendBox in friendGroup.objects) {
       add(
-        FriendComponent()
+        FriendComponent(game: this)
           ..position = Vector2(friendBox.x, friendBox.y)
           ..width = friendBox.width
           ..height = friendBox.height
@@ -196,7 +201,7 @@ class MyGame extends FlameGame
   void render(Canvas canvas) {
     super.render(canvas);
     if (debugMode) {
-      fpsTextPaint.render(canvas, fps().toString(), Vector2(0, 50));
+      fpsTextPaint.render(canvas, fps(120).toString(), Vector2(0, 50));
     }
   }
 
@@ -206,27 +211,5 @@ class MyGame extends FlameGame
     if (direction > 4) {
       direction = 0;
     }
-  }
-}
-
-/// 碰撞检测
-class FriendComponent extends PositionComponent
-    with GestureHitboxes, CollisionCallbacks {
-  FriendComponent() {
-    add(RectangleHitbox());
-  }
-
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    super.onCollisionEnd(other);
-    print('我遇见一个好朋友');
-    remove(this);
-  }
-}
-
-class GeorgeComponent extends SpriteAnimationComponent
-    with GestureHitboxes, CollisionCallbacks {
-  GeorgeComponent() {
-    add(RectangleHitbox());
   }
 }
