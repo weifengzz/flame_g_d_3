@@ -15,11 +15,11 @@ class FriendComponent extends PositionComponent
   final MyGame game;
 
   @override
-  void onCollisionEnd(PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     print('我遇见一个好朋友');
     game.friendNumber++;
     game.overlays.notifyListeners();
     // remove(this);
-    super.onCollisionEnd(other);
+    super.onCollision(intersectionPoints, other);
   }
 }

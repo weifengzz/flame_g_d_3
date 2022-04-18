@@ -1,9 +1,6 @@
-import 'package:flame/collisions.dart';
-import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flame/sprite.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -42,13 +39,8 @@ class MyGame extends FlameGame
   );
 
   @override
+  // ignore: overridden_fields
   bool debugMode = true;
-
-  late SpriteAnimation downAnimation;
-  late SpriteAnimation leftAnimation;
-  late SpriteAnimation upAnimation;
-  late SpriteAnimation rightAnimation;
-  late SpriteAnimation idleAnimation;
 
   late GeorgeComponent george;
 
@@ -57,7 +49,6 @@ class MyGame extends FlameGame
 
   // late SpriteComponent background;
 
-  final double animationSpeed = .1;
   final double characterSize = 100.0;
   final double characterSpeed = 100.0;
 
@@ -105,43 +96,7 @@ class MyGame extends FlameGame
     FlameAudio.bgm.initialize();
     FlameAudio.audioCache.load('music.mp3');
 
-    final spriteSheet = SpriteSheet(
-      image: await images.load('george2.png'),
-      srcSize: Vector2(48.0, 48.0),
-    );
-
-    downAnimation = spriteSheet.createAnimation(
-      row: 0,
-      stepTime: animationSpeed,
-      to: 4,
-    );
-
-    leftAnimation = spriteSheet.createAnimation(
-      row: 1,
-      stepTime: animationSpeed,
-      to: 4,
-    );
-
-    upAnimation = spriteSheet.createAnimation(
-      row: 2,
-      stepTime: animationSpeed,
-      to: 4,
-    );
-
-    rightAnimation = spriteSheet.createAnimation(
-      row: 3,
-      stepTime: animationSpeed,
-      to: 4,
-    );
-
-    idleAnimation = spriteSheet.createAnimation(
-      row: 0,
-      stepTime: animationSpeed,
-      to: 1,
-    );
-
-    george = GeorgeComponent()
-      ..animation = downAnimation
+    george = GeorgeComponent(game: this)
       ..position = Vector2(characterSize, characterSize)
       ..debugMode = true
       ..size = Vector2.all(100);
@@ -159,42 +114,6 @@ class MyGame extends FlameGame
     );
 
     overlays.add('ButtonController');
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    switch (direction) {
-      case 0:
-        george.animation = idleAnimation;
-        break;
-      case 1:
-        if (george.y < mapHeight - george.height) {
-          george.y += dt * characterSpeed;
-        }
-        george.animation = downAnimation;
-        break;
-      case 2:
-        george.animation = leftAnimation;
-        if (george.x > 0) {
-          george.x -= dt * characterSpeed;
-        }
-        break;
-      case 3:
-        george.animation = upAnimation;
-        if (george.y > 0) {
-          george.y -= dt * characterSpeed;
-        }
-        break;
-      case 4:
-        george.animation = rightAnimation;
-        if (george.x < mapWidth - george.width) {
-          george.x += dt * characterSpeed;
-        }
-        break;
-      default:
-        break;
-    }
   }
 
   @override
