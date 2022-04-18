@@ -32,7 +32,15 @@ void main() {
   );
 }
 
-class MyGame extends FlameGame with TapDetector, HasCollisionDetection {
+class MyGame extends FlameGame
+    with TapDetector, HasCollisionDetection, FPSCounter {
+  static final fpsTextPaint = TextPaint(
+    style: const TextStyle(color: Color(0xFFFFFFFF)),
+  );
+
+  @override
+  bool debugMode = true;
+
   late SpriteAnimation downAnimation;
   late SpriteAnimation leftAnimation;
   late SpriteAnimation upAnimation;
@@ -185,16 +193,19 @@ class MyGame extends FlameGame with TapDetector, HasCollisionDetection {
   }
 
   @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    if (debugMode) {
+      fpsTextPaint.render(canvas, fps().toString(), Vector2(0, 50));
+    }
+  }
+
+  @override
   void onTapUp(TapUpInfo info) {
     direction += 1;
     if (direction > 4) {
       direction = 0;
     }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
   }
 }
 
