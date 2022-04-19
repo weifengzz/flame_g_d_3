@@ -60,6 +60,8 @@ class MyGame extends FlameGame
 
   int friendNumber = 0;
 
+  int bakedGoodsInventory = 0;
+
   @override
   Future<void>? onLoad() async {
     super.onLoad();

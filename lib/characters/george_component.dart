@@ -7,7 +7,13 @@ import '../main.dart';
 class GeorgeComponent extends SpriteAnimationComponent
     with GestureHitboxes, CollisionCallbacks, HasGameRef {
   GeorgeComponent({required this.game}) {
-    add(RectangleHitbox());
+    add(
+      RectangleHitbox.relative(
+        Vector2.all(1),
+        position: Vector2.all(48 / 2),
+        parentSize: Vector2.all(48),
+      ),
+    );
   }
 
   final MyGame game;

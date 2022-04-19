@@ -8,5 +8,14 @@ class BakedGoodComponent extends SpriteComponent
     with GestureHitboxes, CollisionCallbacks, ChangeNotifier, HasGameRef<MyGame> {
   BakedGoodComponent() {
     debugMode = true;
+    add(RectangleHitbox());
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    gameRef.bakedGoodsInventory++;
+    print(gameRef.bakedGoodsInventory.toString() + '个');
+    gameRef.remove(this);
   }
 }
