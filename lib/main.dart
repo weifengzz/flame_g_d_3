@@ -95,6 +95,7 @@ class MyGame extends FlameGame
 
     FlameAudio.bgm.initialize();
     FlameAudio.audioCache.load('music.mp3');
+    // FlameAudio.bgm.play('music.mp3');
 
     george = GeorgeComponent(game: this)
       ..position = Vector2(characterSize, characterSize)
