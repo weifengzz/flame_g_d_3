@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 /// 碰撞检测
 class FriendComponent extends PositionComponent
-    with GestureHitboxes, CollisionCallbacks, ChangeNotifier {
+    with GestureHitboxes, CollisionCallbacks, ChangeNotifier, HasGameRef<MyGame> {
   FriendComponent({
     required this.game,
   }) {
@@ -19,7 +19,7 @@ class FriendComponent extends PositionComponent
     print('我遇见一个好朋友');
     game.friendNumber++;
     game.overlays.notifyListeners();
-    // remove(this);
+    gameRef.remove(this);
     super.onCollision(intersectionPoints, other);
   }
 }

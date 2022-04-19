@@ -39,10 +39,32 @@ class ButtonController extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
-              Image.asset('assets/images/friend.png', scale: .7,),
-              const SizedBox(width: 20.0,),
+              Image.asset(
+                'assets/images/friend.png',
+                scale: .7,
+              ),
+              const SizedBox(
+                width: 20.0,
+              ),
               Text(
                 game.friendNumber.toString(),
+                style: const TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                width: 50.0,
+              ),
+              Image.asset(
+                'assets/images/cookies.png',
+                scale: .7,
+              ),
+              const SizedBox(
+                width: 20.0,
+              ),
+              Text(
+                game.bakedGoodsInventory.toString(),
                 style: const TextStyle(
                   fontSize: 30.0,
                   color: Colors.white,

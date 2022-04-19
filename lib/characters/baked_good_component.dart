@@ -15,7 +15,7 @@ class BakedGoodComponent extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     gameRef.bakedGoodsInventory++;
-    print(gameRef.bakedGoodsInventory.toString() + '个');
+    gameRef.overlays.notifyListeners();
     gameRef.remove(this);
   }
 }
