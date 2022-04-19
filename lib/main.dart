@@ -10,6 +10,7 @@ import 'package:tiled/tiled.dart';
 
 import 'characters/friend_component.dart';
 import 'characters/george_component.dart';
+import 'loaders/add_baked_goods.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,6 +74,8 @@ class MyGame extends FlameGame
 
     add(homeMap);
 
+    addBakedGoods(homeMap, this);
+
     final ObjectGroup friendGroup =
         homeMap.tileMap.getLayer('Friends') as ObjectGroup;
     for (var friendBox in friendGroup.objects) {
@@ -132,4 +135,5 @@ class MyGame extends FlameGame
       direction = 0;
     }
   }
+
 }
