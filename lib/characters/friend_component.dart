@@ -20,6 +20,7 @@ class FriendComponent extends PositionComponent
     game.friendNumber++;
     game.overlays.notifyListeners();
     gameRef.remove(this);
+    gameRef.applause.start();
     super.onCollision(intersectionPoints, other);
   }
 }

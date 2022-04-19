@@ -14,7 +14,7 @@ class ButtonController extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () => {FlameAudio.bgm.play('music.mp3')},
+              onPressed: () => {FlameAudio.bgm.play('music.mp3', volume: 0.1)},
               icon: const Icon(
                 Icons.headset_mic_sharp,
                 color: Colors.red,

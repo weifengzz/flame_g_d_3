@@ -1,6 +1,7 @@
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame_audio/audio_pool.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -48,6 +49,9 @@ class MyGame extends FlameGame
   late double mapWidth;
   late double mapHeight;
 
+  late AudioPool yummy;
+  late AudioPool applause;
+
   // late SpriteComponent background;
 
   final double characterSize = 100.0;
@@ -77,6 +81,9 @@ class MyGame extends FlameGame
     add(homeMap);
 
     addBakedGoods(homeMap, this);
+
+    yummy = await AudioPool.create('yummy.mp3');
+    applause = await AudioPool.create('applause.mp3');
 
     final ObjectGroup friendGroup =
         homeMap.tileMap.getLayer('Friends') as ObjectGroup;
@@ -137,5 +144,4 @@ class MyGame extends FlameGame
       direction = 0;
     }
   }
-
 }

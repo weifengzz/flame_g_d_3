@@ -16,6 +16,7 @@ class BakedGoodComponent extends SpriteComponent
     super.onCollision(intersectionPoints, other);
     gameRef.bakedGoodsInventory++;
     gameRef.overlays.notifyListeners();
+    gameRef.yummy.start();
     gameRef.remove(this);
   }
 }
