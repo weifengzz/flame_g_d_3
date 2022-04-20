@@ -4,6 +4,7 @@ import 'package:flame/input.dart';
 import 'package:flame_audio/audio_pool.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
+import 'package:flame_g_d_3/dialog/dialog_box.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart' show ObjectGroup;
 import 'package:flutter/material.dart';
@@ -51,13 +52,14 @@ class MyGame extends FlameGame
 
   late AudioPool yummy;
   late AudioPool applause;
+  late DialogBox dialogBox;
 
   // late SpriteComponent background;
 
   final double characterSize = 100.0;
   final double characterSpeed = 100.0;
 
-  final String soundTrackName = '女驸马';
+  final String soundTrackName = '魔王音';
 
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
@@ -84,6 +86,10 @@ class MyGame extends FlameGame
 
     yummy = await AudioPool.create('yummy.mp3');
     applause = await AudioPool.create('applause.mp3');
+
+    dialogBox = DialogBox(text: 'hello My name is song ximing', game: this);
+
+    add(dialogBox);
 
     final ObjectGroup friendGroup =
         homeMap.tileMap.getLayer('Friends') as ObjectGroup;
