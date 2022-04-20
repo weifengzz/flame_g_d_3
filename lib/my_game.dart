@@ -45,6 +45,8 @@ class MyGame extends FlameGame
 
   int bakedGoodsInventory = 0;
 
+  String dialogMessage = 'hello my name is song ximing...';
+
   @override
   Future<void>? onLoad() async {
     super.onLoad();
@@ -64,12 +66,8 @@ class MyGame extends FlameGame
     yummy = await AudioPool.create('yummy.mp3');
     applause = await AudioPool.create('applause.mp3');
 
-    dialogBox = DialogBox(text: 'hello My name is song ximing', game: this);
-
-    add(dialogBox);
-
     loadFriends(homeMap, this);
-  
+
     loadObstacles(homeMap, this);
     // Sprite backgroundSprite = await loadSprite('background.png');
 
