@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="88" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="14">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="88" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="15">
  <tileset firstgid="1" name="background" tilewidth="16" tileheight="16" tilecount="4400" columns="88">
   <image source="../images/background.png" width="1408" height="800"/>
  </tileset>
@@ -82,5 +82,8 @@
   <object id="11" gid="4403" x="656" y="318.667" width="32" height="32"/>
   <object id="12" gid="4404" x="288" y="158.667" width="32" height="32"/>
   <object id="13" gid="4402" x="330.667" y="548" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="4" name="Obstacles">
+  <object id="14" type="Obstacle" x="317.333" y="194.667" width="632" height="25.3333"/>
  </objectgroup>
 </map>

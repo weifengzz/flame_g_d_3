@@ -6,13 +6,12 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_g_d_3/button_controller.dart';
 import 'package:flame_g_d_3/dialog/dialog_box.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:tiled/tiled.dart' show ObjectGroup;
 import 'package:flutter/material.dart';
-import 'package:tiled/tiled.dart';
 
-import 'characters/friend_component.dart';
 import 'characters/george_component.dart';
 import 'loaders/add_baked_goods.dart';
+import 'loaders/load_friends.dart';
+import 'loaders/load_obstacles.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +63,9 @@ class MyGame extends FlameGame
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
 
+  // collisionDirection is -1, there is no collision
+  int collisionDirection = -1;
+
   int friendNumber = 0;
 
   int bakedGoodsInventory = 0;
@@ -91,18 +93,9 @@ class MyGame extends FlameGame
 
     add(dialogBox);
 
-    final ObjectGroup friendGroup =
-        homeMap.tileMap.getLayer('Friends') as ObjectGroup;
-    for (var friendBox in friendGroup.objects) {
-      add(
-        FriendComponent(game: this)
-          ..position = Vector2(friendBox.x, friendBox.y)
-          ..width = friendBox.width
-          ..height = friendBox.height
-          ..debugMode = true,
-      );
-    }
-
+    loadFriends(homeMap, this);
+  
+    loadObstacles(homeMap, this);
     // Sprite backgroundSprite = await loadSprite('background.png');
 
     // background = SpriteComponent()
@@ -112,7 +105,7 @@ class MyGame extends FlameGame
     // add(background);
 
     FlameAudio.bgm.initialize();
-    FlameAudio.audioCache.load('music.mp3');
+    FlameAudio.audioCache.load('music.flac');
     // FlameAudio.bgm.play('music.mp3');
 
     george = GeorgeComponent(game: this)
