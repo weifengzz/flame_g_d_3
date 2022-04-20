@@ -3,7 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_audio/audio_pool.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flame_g_d_3/button_controller.dart';
+import 'package:flame_g_d_3/overlay_controller.dart';
 import 'package:flame_g_d_3/dialog/dialog_box.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ void main() {
         body: GameWidget(
           game: MyGame(),
           overlayBuilderMap: {
-            'ButtonController': (BuildContext context, MyGame game) {
-              return ButtonController(
+            'OverlayController': (BuildContext context, MyGame game) {
+              return OverlayController(
                 game: game,
               );
             },

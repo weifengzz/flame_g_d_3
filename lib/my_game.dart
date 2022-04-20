@@ -102,7 +102,7 @@ class MyGame extends FlameGame
       ),
     );
 
-    overlays.add('ButtonController');
+    overlays.add('OverlayController');
   }
 
   @override

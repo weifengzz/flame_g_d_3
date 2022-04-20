@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'my_game.dart';
 
-class ButtonController extends StatelessWidget {
-  const ButtonController({Key? key, required this.game}) : super(key: key);
+class OverlayController extends StatelessWidget {
+  const OverlayController({Key? key, required this.game}) : super(key: key);
   final MyGame game;
   @override
   Widget build(BuildContext context) {
