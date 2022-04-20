@@ -2,7 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 
-import '../main.dart';
+import '../my_game.dart';
 
 class GeorgeComponent extends SpriteAnimationComponent
     with GestureHitboxes, CollisionCallbacks, HasGameRef {

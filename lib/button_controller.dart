@@ -1,7 +1,7 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+import 'my_game.dart';
 
 class ButtonController extends StatelessWidget {
   const ButtonController({Key? key, required this.game}) : super(key: key);

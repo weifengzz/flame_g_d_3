@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:flame_g_d_3/main.dart';
 import 'package:flutter/material.dart';
+
+import '../my_game.dart';
 
 class DialogBox extends TextBoxComponent {
   DialogBox({

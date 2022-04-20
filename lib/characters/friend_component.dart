@@ -1,8 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_g_d_3/dialog/dialog_box.dart';
-import 'package:flame_g_d_3/main.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../my_game.dart';
 
 /// 碰撞检测
 class FriendComponent extends PositionComponent

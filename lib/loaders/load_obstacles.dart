@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart' show ObjectGroup;
 import '../characters/obstacle_component.dart';
-import '../main.dart';
+import '../my_game.dart';
 
 void loadObstacles(TiledComponent homeMap, MyGame game) {
   final ObjectGroup obstacleGroup =

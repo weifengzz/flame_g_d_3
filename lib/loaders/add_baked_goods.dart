@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
-import 'package:flame_g_d_3/main.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart' show ObjectGroup, TiledObject;
 import '../characters/baked_good_component.dart';
+import '../my_game.dart';
 
 /// 添加食物
 void addBakedGoods(TiledComponent homeMap, MyGame game) async {
