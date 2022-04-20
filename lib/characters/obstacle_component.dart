@@ -19,13 +19,18 @@ class ObstacleComponent extends PositionComponent
 
   final MyGame game;
 
+  bool _hasCollided = false;
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
     if (other is GeorgeComponent) {
-      game.collisionDirection = game.direction;
-      print('collision is ============${game.collisionDirection}');
+      if (!_hasCollided) {
+        game.collisionDirection = game.direction;
+        _hasCollided = true;
+        print('collision is ============${game.collisionDirection}');
+      }
     }
   }
 
@@ -34,6 +39,7 @@ class ObstacleComponent extends PositionComponent
     super.onCollisionEnd(other);
     if (other is GeorgeComponent) {
       game.collisionDirection = -1;
+      _hasCollided = false;
     }
   }
 }
