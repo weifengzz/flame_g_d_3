@@ -35,8 +35,6 @@ class MyGame extends FlameGame
   final double characterSize = 100.0;
   final double characterSpeed = 100.0;
 
-  final String soundTrackName = '魔王音';
-
   // 0=idle, 1=down, 2=left, 3=up, 4=right
   int direction = 0;
 

@@ -22,20 +22,24 @@ class FriendComponent extends PositionComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (game.bakedGoodsInventory > 0) {
-      String message = 'thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,';
-      game.dialogBox = DialogBox(text: message, game: game);
-      game.add(game.dialogBox);
-      game.friendNumber++;
-      game.bakedGoodsInventory -= 1;
-      game.overlays.notifyListeners();
-      gameRef.applause.start();
-      gameRef.remove(this);
-    } else {
-      String message = 'great to meet you!great to meet you!great to meet you!great to meet you!great to meet you!';
-      game.dialogBox = DialogBox(text: message, game: game);
-      game.add(game.dialogBox);
-      gameRef.remove(this);
+    if (other is MyGame) {
+      if (game.bakedGoodsInventory > 0) {
+        String message =
+            'thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,thank you very much,';
+        game.dialogBox = DialogBox(text: message, game: game);
+        game.add(game.dialogBox);
+        game.friendNumber++;
+        game.bakedGoodsInventory -= 1;
+        game.overlays.notifyListeners();
+        gameRef.applause.start();
+        gameRef.remove(this);
+      } else {
+        String message =
+            'great to meet you!great to meet you!great to meet you!great to meet you!great to meet you!';
+        game.dialogBox = DialogBox(text: message, game: game);
+        game.add(game.dialogBox);
+        gameRef.remove(this);
+      }
     }
 
     super.onCollision(intersectionPoints, other);

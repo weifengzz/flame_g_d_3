@@ -30,7 +30,6 @@ class ObstacleComponent extends PositionComponent
       if (!_hasCollided) {
         game.collisionDirection = game.direction;
         _hasCollided = true;
-        print('collision is ============${game.collisionDirection}');
       }
     }
   }
