@@ -23,6 +23,7 @@ class DialogOverlay extends StatelessWidget {
                     fontSize: 18.0,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'vt323',
                   ),
                   speed: const Duration(milliseconds: 100),
                 ),
