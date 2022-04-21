@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_audio/audio_pool.dart';
@@ -30,6 +31,10 @@ class MyGame extends FlameGame
   late AudioPool applause;
   late DialogBox dialogBox;
 
+  late TiledComponent homeMap;
+
+  List<Component> componentList = [];
+
   // late SpriteComponent background;
 
   final double characterSize = 100.0;
@@ -42,6 +47,8 @@ class MyGame extends FlameGame
   int collisionDirection = -1;
 
   int friendNumber = 0;
+  int maxFriends = 0;
+  int sceneNumber = 0;
 
   int bakedGoodsInventory = 0;
 
@@ -53,7 +60,7 @@ class MyGame extends FlameGame
   Future<void>? onLoad() async {
     super.onLoad();
 
-    final homeMap = await TiledComponent.load(
+    homeMap = await TiledComponent.load(
       'map.tmx',
       Vector2.all(16.0),
     );
@@ -80,7 +87,7 @@ class MyGame extends FlameGame
     // add(background);
 
     FlameAudio.bgm.initialize();
-    FlameAudio.audioCache.load('music.flac');
+    FlameAudio.audioCache.load('music.mp3');
     // FlameAudio.bgm.play('music.mp3');
 
     george = GeorgeComponent(game: this)
@@ -116,6 +123,20 @@ class MyGame extends FlameGame
     direction += 1;
     if (direction > 4) {
       direction = 0;
+    }
+  }
+
+  void newScene() async {
+    remove(homeMap);
+    bakedGoodsInventory = 0;
+    friendNumber = 0;
+    maxFriends = 0;
+    FlameAudio.bgm.stop();
+    for (Component item in componentList) {
+      bool isMounted = item.isMounted;
+      if (isMounted) {
+        remove(item);
+      }
     }
   }
 }

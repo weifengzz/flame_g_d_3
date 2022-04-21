@@ -9,7 +9,7 @@ class AudioOverlay extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          onPressed: () => {FlameAudio.bgm.play('music.mp3', volume: 0.1)},
+          onPressed: () => {FlameAudio.bgm.play('music.mp3', volume: 0.3)},
           icon: const Icon(
             Icons.headset_mic_sharp,
             color: Colors.red,

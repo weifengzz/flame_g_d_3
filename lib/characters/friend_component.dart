@@ -29,6 +29,11 @@ class FriendComponent extends PositionComponent
         game.friendNumber++;
         game.bakedGoodsInventory -= 1;
         gameRef.applause.start();
+
+        if (game.maxFriends == game.friendNumber) {
+          game.sceneNumber++;
+          game.newScene();
+        }
       } else {
         game.dialogMessage =
             'great to meet you!great to meet you!great to meet you!great to meet you!great to meet you!';
