@@ -13,7 +13,7 @@ import 'loaders/load_friends.dart';
 import 'loaders/load_obstacles.dart';
 
 class MyGame extends FlameGame
-    with TapDetector, HasCollisionDetection, FPSCounter {
+    with TapDetector, HasCollisionDetection, FPSCounter, ChangeNotifier {
   static final fpsTextPaint = TextPaint(
     style: const TextStyle(color: Color(0xFFFFFFFF)),
   );
@@ -48,7 +48,7 @@ class MyGame extends FlameGame
 
   int friendNumber = 0;
   int maxFriends = 0;
-  int sceneNumber = 0;
+  int sceneNumber = 1;
 
   int bakedGoodsInventory = 0;
 
@@ -127,10 +127,12 @@ class MyGame extends FlameGame
   }
 
   void newScene() async {
+    String mapFile = 'map1.tmx';
     remove(homeMap);
     bakedGoodsInventory = 0;
     friendNumber = 0;
     maxFriends = 0;
+    direction = 0;
     FlameAudio.bgm.stop();
     for (Component item in componentList) {
       bool isMounted = item.isMounted;
@@ -138,5 +140,27 @@ class MyGame extends FlameGame
         remove(item);
       }
     }
+    showDialog = false;
+    remove(george);
+    if (sceneNumber == 2) {}
+    george = GeorgeComponent(game: this)
+      ..position = Vector2(300, 200)
+      ..size = Vector2.all(characterSize)
+      ..debugMode = true;
+    homeMap = await TiledComponent.load(
+      mapFile,
+      Vector2.all(16.0),
+    );
+    add(homeMap);
+    mapWidth = homeMap.tileMap.map.width * 16.0;
+    mapHeight = homeMap.tileMap.map.height * 16.0;
+    // addBakedGoods(homeMap, this);
+    // loadFriends(homeMap, this);
+    // loadObstacles(homeMap, this);
+    add(george);
+    camera.followComponent(
+      george,
+      worldBounds: Rect.fromLTWH(0, 0, mapWidth, mapHeight),
+    );
   }
 }
