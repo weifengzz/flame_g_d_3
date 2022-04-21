@@ -47,6 +47,8 @@ class MyGame extends FlameGame
 
   String dialogMessage = 'hello my name is song ximing...';
 
+  bool showDialog = true;
+
   @override
   Future<void>? onLoad() async {
     super.onLoad();

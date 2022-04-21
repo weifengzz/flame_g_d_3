@@ -22,7 +22,7 @@ class OverlayController extends StatelessWidget {
             ),
             Expanded(
               flex: 2,
-              child: DialogOverly(game: game,),
+              child: DialogOverlay(game: game,),
             ),
           ],
         ),
